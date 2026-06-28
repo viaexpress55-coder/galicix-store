@@ -11,13 +11,6 @@ export default function Hero() {
         Discover the best products, compare prices and make smarter buying
         decisions.
       </p>
-
-      <div className="mx-auto mt-10 max-w-xl">
-        <input
-          className="w-full rounded-xl border border-gray-300 px-5 py-4 outline-none focus:border-blue-600"
-          placeholder="Search millions of products..."
-        />
-      </div>
     </section>
   );
 }

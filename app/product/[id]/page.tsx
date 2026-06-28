@@ -2,9 +2,11 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Star } from "lucide-react";
 
-import { featuredProducts } from "@/lib/data/featured-products";
+import { getProductById } from "@/lib/repositories/product-repository";
+
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import OffersTable from "@/components/offers/OffersTable";
 
 interface ProductPageProps {
   params: Promise<{
@@ -17,29 +19,32 @@ export default async function ProductPage({
 }: ProductPageProps) {
   const { id } = await params;
 
-  const product = featuredProducts.find(
-    (item) => item.id === id
-  );
+  const product = getProductById(id);
 
   if (!product) {
     notFound();
   }
 
+  const bestOffer = product.offers[0];
+
   return (
     <main className="mx-auto max-w-6xl px-6 py-16">
+
       <div className="grid gap-12 lg:grid-cols-2">
+
         <div className="relative aspect-square overflow-hidden rounded-3xl bg-gray-100">
           <Image
             src={product.image}
             alt={product.title}
             fill
-            sizes="50vw"
             priority
+            sizes="50vw"
             className="object-cover"
           />
         </div>
 
         <div className="space-y-6">
+
           <Badge>{product.category}</Badge>
 
           <h1 className="text-4xl font-bold">
@@ -58,25 +63,34 @@ export default async function ProductPage({
 
           <div className="flex items-end gap-3">
             <span className="text-5xl font-black">
-              ${product.price}
+              ${bestOffer.price}
             </span>
 
-            {product.oldPrice && (
+            {bestOffer.oldPrice && (
               <span className="text-xl text-gray-400 line-through">
-                ${product.oldPrice}
+                ${bestOffer.oldPrice}
               </span>
             )}
           </div>
 
           <p className="text-gray-600">
-            Sold by {product.merchant}
+            Sold by {bestOffer.merchant}
           </p>
 
           <Button size="lg">
             Go to Merchant
           </Button>
+
         </div>
+
       </div>
+
+      {/* Available Offers */}
+
+      <section className="mt-16">
+        <OffersTable offers={product.offers} />
+      </section>
+
     </main>
   );
 }

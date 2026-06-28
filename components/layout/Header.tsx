@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Search, ShoppingBag } from "lucide-react";
+import { ShoppingBag } from "lucide-react";
 
-import { Input } from "@/components/ui/input";
+import SearchBar from "@/components/search/SearchBar";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function Header() {
@@ -23,15 +23,8 @@ export default function Header() {
         </Link>
 
         {/* Search */}
-        <div className="hidden w-full max-w-xl items-center px-8 md:flex">
-          <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-
-            <Input
-              placeholder="Search products..."
-              className="pl-10"
-            />
-          </div>
+        <div className="hidden w-full max-w-xl px-8 md:block">
+          <SearchBar />
         </div>
 
         {/* Navigation */}

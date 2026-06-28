@@ -1,7 +1,10 @@
 import ProductCard from "@/components/product/ProductCard";
-import { featuredProducts } from "@/lib/data/featured-products";
+
+import { getFeaturedProducts } from "@/lib/repositories/product-repository";
 
 export default function FeaturedProducts() {
+  const products = getFeaturedProducts();
+
   return (
     <section className="mx-auto max-w-7xl px-6 py-20">
       <div className="mb-10">
@@ -15,7 +18,7 @@ export default function FeaturedProducts() {
       </div>
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {featuredProducts.map((product) => (
+        {products.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
