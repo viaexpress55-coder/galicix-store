@@ -1,4 +1,5 @@
 import ProductCard from "@/components/product/ProductCard";
+import { featuredProducts } from "@/lib/data/featured-products";
 
 export default function FeaturedProducts() {
   return (
@@ -14,10 +15,12 @@ export default function FeaturedProducts() {
       </div>
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        {featuredProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+          />
+        ))}
       </div>
     </section>
   );
