@@ -1,11 +1,17 @@
 "use client";
 
-const ratings = [5, 4, 3, 2];
+import { RATINGS } from "@/lib/constants/ratings";
+import { useSearch } from "@/components/providers/SearchProvider";
 
 export default function RatingFilter() {
+  const {
+    filters,
+    setRating,
+  } = useSearch();
+
   return (
     <div className="space-y-3">
-      {ratings.map((rating) => (
+      {RATINGS.map((rating) => (
         <label
           key={rating}
           className="flex cursor-pointer items-center gap-2 text-sm"
@@ -13,14 +19,14 @@ export default function RatingFilter() {
           <input
             type="radio"
             name="rating"
+            checked={filters.minRating === rating}
+            onChange={() => setRating(rating)}
             className="h-4 w-4"
           />
 
           <span>
             {"★".repeat(rating)}
-            {"☆".repeat(5 - rating)}
-            {" "}
-            & Up
+            {"☆".repeat(5 - rating)} & Up
           </span>
         </label>
       ))}

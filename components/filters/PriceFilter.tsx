@@ -1,39 +1,33 @@
 "use client";
 
-const priceRanges = [
-  {
-    label: "Under $100",
-    min: 0,
-    max: 100,
-  },
-  {
-    label: "$100 - $300",
-    min: 100,
-    max: 300,
-  },
-  {
-    label: "$300 - $500",
-    min: 300,
-    max: 500,
-  },
-  {
-    label: "Over $500",
-    min: 500,
-    max: Infinity,
-  },
-];
+import { PRICE_RANGES } from "@/lib/constants/price-ranges";
+import { useSearch } from "@/components/providers/SearchProvider";
 
 export default function PriceFilter() {
+  const {
+    filters,
+    setMinPrice,
+    setMaxPrice,
+  } = useSearch();
+
   return (
     <div className="space-y-3">
-      {priceRanges.map((range) => (
+      {PRICE_RANGES.map((range) => (
         <label
           key={range.label}
-          className="flex items-center gap-2 cursor-pointer text-sm"
+          className="flex cursor-pointer items-center gap-2 text-sm"
         >
           <input
             type="radio"
             name="price"
+            checked={
+              filters.minPrice === range.min &&
+              filters.maxPrice === range.max
+            }
+            onChange={() => {
+              setMinPrice(range.min);
+              setMaxPrice(range.max);
+            }}
             className="h-4 w-4"
           />
 

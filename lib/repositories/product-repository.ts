@@ -19,3 +19,31 @@ export function getProductsByCategory(category: string) {
     (product) => product.category === category
   );
 }
+
+export function getCategories(): string[] {
+  return [...new Set(featuredProducts.map(
+    (product) => product.category
+  ))].sort();
+}
+
+export function getBrands(): string[] {
+  return [...new Set(featuredProducts.map(
+    (product) => product.brand
+  ))].sort();
+}
+
+export function getMinPrice(): number {
+  return Math.min(
+    ...featuredProducts.map(
+      (product) => product.offers[0].price
+    )
+  );
+}
+
+export function getMaxPrice(): number {
+  return Math.max(
+    ...featuredProducts.map(
+      (product) => product.offers[0].price
+    )
+  );
+}

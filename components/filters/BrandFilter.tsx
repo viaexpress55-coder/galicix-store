@@ -1,24 +1,29 @@
 "use client";
 
-import { getAllProducts } from "@/lib/repositories/product-repository";
-
-const brands = Array.from(
-  new Set(
-    getAllProducts().map((product) => product.brand)
-  )
-).sort();
+import { getBrands } from "@/lib/repositories/product-repository";
+import { useSearch } from "@/components/providers/SearchProvider";
 
 export default function BrandFilter() {
+  const brands = getBrands();
+
+  const {
+    filters,
+    setBrand,
+  } = useSearch();
+
   return (
     <div className="space-y-3">
       {brands.map((brand) => (
         <label
           key={brand}
-          className="flex items-center gap-2 cursor-pointer text-sm"
+          className="flex cursor-pointer items-center gap-2 text-sm"
         >
           <input
-            type="checkbox"
-            className="h-4 w-4 rounded border-gray-300"
+            type="radio"
+            name="brand"
+            checked={filters.brand === brand}
+            onChange={() => setBrand(brand)}
+            className="h-4 w-4"
           />
 
           <span>{brand}</span>
