@@ -6,6 +6,7 @@ import { Product } from "@/lib/types/product";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 interface ProductCardProps {
   product: Product;
@@ -13,13 +14,15 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   return (
-    <Card className="overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-1 hover:shadow-xl">
+  <Link href={`/product/${product.id}`}>
+    <Card className="overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-1 hover:shadow-xl cursor-pointer">
       <div className="relative aspect-square bg-gray-100">
         <Image
           src={product.image}
           alt={product.title}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+          priority
+          sizes="(max-width:768px)100vw,(max-width:1200px)50vw,25vw"
           className="object-cover"
         />
       </div>
@@ -56,5 +59,6 @@ export default function ProductCard({ product }: ProductCardProps) {
         </Button>
       </CardContent>
     </Card>
-  );
+  </Link>
+);
 }
